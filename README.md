@@ -1,6 +1,6 @@
-#LabApp
+# LabApp
 
-# Indice
+## Indice
 
   - [Instalação](#instalação)
   - [Arquitetura do Projeto](#arquitetura-do-projeto)
@@ -15,9 +15,13 @@
 
   2. Executar o comando de instalação 
 ```bash
+$ npm install ou yarn (caso tenha instalado)
+```
+  3. Executar o comando para subir a aplicação no docker
+```bash
 $ docker compose up -d
 ```
-  3. Após executar o comando acima, rodar as migrations para criação das tabelas
+  4. Após executar o comando acima, rodar as migrations para criação das tabelas
 
 ```bash
 $ npm run typeorm migration:run
