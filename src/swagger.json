@@ -1,0 +1,690 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "LabApp Documentation",
+    "description": "Documentation from Lab App",
+    "version": "1.0.0",
+    "contact": {
+      "email": "danilo.vitolo@gmail.com"
+    }
+  },
+  "paths": {
+    "/laboratories": {
+      "post": {
+        "tags": [
+          "Laboratory"
+        ],
+        "sumary": "Create a Laboratory",
+        "description": "Create a new Laboratory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "address"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "zipCode": {
+                    "type": "string"
+                  },
+                  "neighborhood": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Laboratório Teste",
+                  "address": "Endereço do Laboratório teste",
+                  "zipCode": "01310-100",
+                  "neighborhood": "Bela Vista",
+                  "city": "São Paulo",
+                  "state": "SP"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Laboratory already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Laboratory"
+        ],
+        "summary": "List laboratories",
+        "description": "List all laboratories",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "zipCode": {
+                        "type": "string"
+                      },
+                      "neighborhood": {
+                        "type": "string"
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/laboratories/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of laboratory",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Laboratory"
+        ],
+        "sumary": "Update a Laboratory",
+        "description": "Update a Laboratory existent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "zipCode": {
+                    "type": "string"
+                  },
+                  "neighborhood": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                },
+                "example": {
+                  "name": "Laboratório Teste 2",
+                  "address": "Endereço do Laboratório teste",
+                  "zipCode": "01310-100",
+                  "neighborhood": "Bela Vista",
+                  "city": "São Paulo",
+                  "state": "SP",
+                  "active": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Laboratory Updated"
+          },
+          "404": {
+            "description": "Laboratory not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Laboratory"
+        ],
+        "sumary": "Remove a Laboratory",
+        "description": "Remove a Laboratory from the list of active laboratories",
+        "responses": {
+          "204": {
+            "description": "Laboratory desactivate"
+          },
+          "400": {
+            "description": "Laboratory alreary desactivated"
+          },
+          "404": {
+            "description": "Laboratory not found"
+          }
+        }
+      }
+    },
+    "/laboratories/{id}/associate": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the laboratory that will be associated with the exam",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Laboratory"
+        ],
+        "sumary": "Associate a laboratory",
+        "description": "Associate a laboratory with the exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "idExam"
+                ],
+                "properties": {
+                  "idExam": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idExam": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Associated"
+          },
+          "404": {
+            "description": "Laboratory not found / Exam not found"
+          },
+          "400": {
+            "description": "Relation already exists"
+          }
+        }
+      }
+    },
+    "/laboratories/{id}/desassociate": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the laboratory that will be desassociated with the exam",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Laboratory"
+        ],
+        "sumary": "Desassociate a laboratory",
+        "description": "Desassociate a laboratory with the exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "idExam"
+                ],
+                "properties": {
+                  "idExam": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idExam": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Desassociated"
+          },
+          "404": {
+            "description": "Relation not found"
+          }
+        }
+      }
+    },
+    "/exams": {
+      "post": {
+        "tags": [
+          "Exam"
+        ],
+        "sumary": "Create a Exam",
+        "description": "Create a new Exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "examType"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "examType": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Exame Teste",
+                  "examType": "Imagem"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Exam already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Exam"
+        ],
+        "summary": "List Exams",
+        "description": "List all exams",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "examType": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exams/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of exam",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Exam"
+        ],
+        "sumary": "Update a Exam",
+        "description": "Update a Exam existent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "examType": {
+                    "type": "string"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                },
+                "example": {
+                  "name": "Exame Teste 2",
+                  "examType": "Análise Clínica",
+                  "active": true
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Exam Updated"
+          },
+          "404": {
+            "description": "Exam not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Exam"
+        ],
+        "sumary": "Remove a Exam",
+        "description": "Remove a Exam from the list of active exams",
+        "responses": {
+          "204": {
+            "description": "Exam desactivate"
+          },
+          "400": {
+            "description": "Exam alreary desactivated"
+          },
+          "404": {
+            "description": "Exam not found"
+          }
+        }
+      }
+    },
+    "/exams/{id}/associate": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the exam that will be associated with the laboratory",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Exam"
+        ],
+        "sumary": "Associate a exam",
+        "description": "Associate a exam with the laboratory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "idLaboratory"
+                ],
+                "properties": {
+                  "idlaboratory": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idLaboratory": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Associated"
+          },
+          "404": {
+            "description": "Exam not found / Laboratory not found"
+          },
+          "400": {
+            "description": "Relation already exists"
+          }
+        }
+      }
+    },
+    "/exams/{id}/desassociate": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the exam that will be desassociated with the laboratory",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Exam"
+        ],
+        "sumary": "Desassociate a exam",
+        "description": "Desassociate a exam with the laboratory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "idLaboratory"
+                ],
+                "properties": {
+                  "idLaboratory": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idExam": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Desassociated"
+          },
+          "404": {
+            "description": "Relation not found"
+          }
+        }
+      }
+    },
+    "/exams/{name}/laboratories": {
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "description": "Exam name to list associated laboratories",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Exam"
+        ],
+        "summary": "List laboratories",
+        "description": "List all laboratories associated with the requested exam",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "zipCode": {
+                        "type": "string"
+                      },
+                      "neighborhood": {
+                        "type": "string"
+                      },
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "active": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/laboratoriesexams/associate": {
+      "post": {
+        "tags": [
+          "Laboratory / Exam"
+        ],
+        "sumary": "Associate a Laboratory with a Exam",
+        "description": "Associate a Laboratory with a Exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "IdExam",
+                  "IdLaboratory"
+                ],
+                "properties": {
+                  "IdExam": {
+                    "type": "string"
+                  },
+                  "IdLaboratory": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idLaboratory": "",
+                  "idExam": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Relation already exists"
+          },
+          "404": {
+            "description": "Exam not found / Laboratory not found"
+          }
+        }
+      }
+
+    },
+    "/laboratoriesexams/desassociate": {
+      "post": {
+        "tags": [
+          "Laboratory / Exam"
+        ],
+        "sumary": "Desassociate a Laboratory with a Exam",
+        "description": "Desassociate a Laboratory with a Exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "IdExam",
+                  "IdLaboratory"
+                ],
+                "properties": {
+                  "IdExam": {
+                    "type": "string"
+                  },
+                  "IdLaboratory": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "idLaboratory": "",
+                  "idExam": ""
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Relation not Found"
+          }
+        }
+      }
+
+    }
+
+  }
+}
