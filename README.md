@@ -53,7 +53,7 @@ $ npm run typeorm migration:run
 
 
 ## Observações
-  Foi uma honra ter realizado esse desafio e agradeço a oportunidade. Consegui colocar em prática os principais conceitos que aprendi ao longo dos
+  Consegui colocar em prática os principais conceitos que aprendi ao longo dos
   meus estudos / experiência com essas tecnologias, além do desafio de ter criado tudo do "zero".
   Não fiz a publicação do projeto em ambiente cloud por ter expirado minha conta (versão gratuita) da AWS, porém, 
   possuo experiência com arquitetura cloud, serverless, criação de lambdas, SQS, SNS, CodePipeline, Codebuild etc.
